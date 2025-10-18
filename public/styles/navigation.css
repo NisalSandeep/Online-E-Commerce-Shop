@@ -1,0 +1,521 @@
+/* Modern Transparent Navigation with Apple-Style Transform Blur */
+
+/* Keyframes for Apple Water Ripple Effect */
+@keyframes water-ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes water-wave {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+}
+
+/* Main Header with Apple Blur Effect */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(10, 14, 39, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 194, 255, 0.15);
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.1),
+        0 0 1px rgba(0, 194, 255, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    will-change: backdrop-filter, transform;
+    overflow: visible;
+}
+
+/* Logo positioned on the left */
+#main-header > div {
+    flex: 0;
+    z-index: 2;
+}
+
+/* Navigation positioned to the right */
+#main-header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+/* Mobile button positioned on the right */
+#mobile-menu-btn {
+    position: absolute;
+    right: 2rem;
+    z-index: 2;
+}
+
+/* Water ripple effect background */
+#main-header::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 194, 255, 0.1) 0%, transparent 50%);
+    transform: translate(-50%, -50%);
+    animation: water-wave 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Enhanced blur on scroll/hover */
+#main-header:hover {
+    background: rgba(10, 14, 39, 0.85);
+    backdrop-filter: saturate(200%) blur(30px);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+    border-bottom-color: rgba(0, 194, 255, 0.3);
+    box-shadow: 
+        0 8px 40px rgba(0, 0, 0, 0.15),
+        0 0 2px rgba(0, 194, 255, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Logo/Brand Styling with Apple-style Glow */
+#main-header .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00bcff !important;
+    text-decoration: none;
+    text-shadow: 
+        0 0 10px rgba(0, 188, 255, 0.4),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 1px;
+    transform: translateZ(0);
+}
+
+#main-header .navbar-brand:hover {
+    color: #00e5ff !important;
+    text-shadow: 
+        0 0 20px rgba(0, 188, 255, 0.6),
+        0 0 40px rgba(0, 188, 255, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02) translateZ(0);
+}
+
+/* Desktop Navigation */
+#main-header nav {
+    display: flex;
+}
+
+#main-header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#main-header nav li {
+    margin: 0;
+}
+
+#main-header nav a,
+#main-header nav button {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+/* Apple-style water ripple on click */
+#main-header nav a::after,
+#main-header nav button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 194, 255, 0.4) 0%, rgba(0, 194, 255, 0.1) 50%, transparent 100%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+}
+
+#main-header nav a:active::after,
+#main-header nav button:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+    transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+/* Apple-style subtle background glow */
+#main-header nav a::before,
+#main-header nav button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(0, 194, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+#main-header nav a:hover,
+#main-header nav button:hover {
+    background: rgba(0, 194, 255, 0.12);
+    border-color: rgba(0, 194, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 
+        0 4px 20px rgba(0, 194, 255, 0.15),
+        0 0 0 1px rgba(0, 194, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px) translateZ(0);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+#main-header nav a:hover::before,
+#main-header nav button:hover::before {
+    opacity: 1;
+}
+
+#main-header nav a:active,
+#main-header nav button:active {
+    transform: translateY(0);
+}
+
+/* Logout Button Special Styling with Apple Aesthetic */
+#main-header nav form {
+    margin: 0;
+}
+
+#main-header nav button {
+    background: rgba(255, 59, 48, 0.15);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: #ff6b6b;
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+#main-header nav button::before {
+    background: radial-gradient(circle at center, rgba(255, 59, 48, 0.15) 0%, transparent 70%);
+}
+
+#main-header nav button:hover {
+    background: rgba(255, 59, 48, 0.25);
+    border-color: rgba(255, 59, 48, 0.5);
+    color: #ff8a8a;
+    box-shadow: 
+        0 4px 20px rgba(255, 59, 48, 0.2),
+        0 0 0 1px rgba(255, 59, 48, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: saturate(200%) blur(15px);
+    -webkit-backdrop-filter: saturate(200%) blur(15px);
+}
+
+/* Mobile Menu Button with Apple-style Animation */
+#mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2.5rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    position: relative;
+}
+
+#mobile-menu-btn span {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #00bcff 0%, #00e5ff 100%);
+    border-radius: 10px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 0 8px rgba(0, 188, 255, 0.4),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: translateZ(0);
+}
+
+#mobile-menu-btn:hover span {
+    background: linear-gradient(90deg, #00d4ff 0%, #00ffff 100%);
+    box-shadow: 
+        0 0 12px rgba(0, 188, 255, 0.6),
+        0 0 24px rgba(0, 188, 255, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Menu Active State */
+#mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+#mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+#mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mobile Sidebar Navigation with Apple Blur */
+aside {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(10, 14, 39, 0.85);
+    backdrop-filter: saturate(180%) blur(40px);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+    border-right: 1px solid rgba(0, 194, 255, 0.2);
+    box-shadow: 
+        4px 0 40px rgba(0, 0, 0, 0.4),
+        inset -1px 0 0 rgba(255, 255, 255, 0.05);
+    padding: 5rem 0 2rem;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    overflow-y: auto;
+    transform: translateZ(0);
+    will-change: left, backdrop-filter;
+}
+
+aside.open {
+    left: 0;
+    backdrop-filter: saturate(200%) blur(50px);
+    -webkit-backdrop-filter: saturate(200%) blur(50px);
+}
+
+aside ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+aside li {
+    margin: 0;
+}
+
+aside a,
+aside button {
+    display: block;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    position: relative;
+    transform: translateZ(0);
+    overflow: hidden;
+}
+
+/* Water ripple effect for mobile menu */
+aside a::after,
+aside button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 194, 255, 0.4) 0%, rgba(0, 194, 255, 0.1) 50%, transparent 100%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+}
+
+aside a:active::after,
+aside button:active::after {
+    width: 400px;
+    height: 400px;
+    opacity: 1;
+    transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+aside a::before,
+aside button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at left, rgba(0, 194, 255, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+aside a:hover,
+aside button:hover {
+    background: rgba(0, 194, 255, 0.12);
+    border-color: rgba(0, 194, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 
+        0 4px 20px rgba(0, 194, 255, 0.15),
+        0 0 0 1px rgba(0, 194, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: translateX(4px) translateZ(0);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+aside a:hover::before,
+aside button:hover::before {
+    opacity: 1;
+}
+
+aside form {
+    margin: 0;
+}
+
+aside button {
+    background: rgba(255, 59, 48, 0.15);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: #ff6b6b;
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+aside button::before {
+    background: radial-gradient(circle at left, rgba(255, 59, 48, 0.15) 0%, transparent 70%);
+}
+
+aside button:hover {
+    background: rgba(255, 59, 48, 0.25);
+    border-color: rgba(255, 59, 48, 0.5);
+    color: #ff8a8a;
+    box-shadow: 
+        0 4px 20px rgba(255, 59, 48, 0.2),
+        0 0 0 1px rgba(255, 59, 48, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: saturate(200%) blur(15px);
+    -webkit-backdrop-filter: saturate(200%) blur(15px);
+}
+
+/* Overlay for mobile menu with Apple-style blur */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: saturate(120%) blur(20px);
+    -webkit-backdrop-filter: saturate(120%) blur(20px);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Add spacing to body for fixed header */
+body {
+    padding-top: 100px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #main-header {
+        padding: 1rem 1.5rem;
+    }
+
+    #main-header nav {
+        display: none;
+    }
+
+    #mobile-menu-btn {
+        display: flex;
+    }
+
+    body {
+        padding-top: 85px;
+    }
+}
+
+@media (max-width: 576px) {
+    #main-header {
+        padding: 0.75rem 1rem;
+    }
+
+    #main-header .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    aside {
+        width: 85%;
+        max-width: 320px;
+    }
+
+    body {
+        padding-top: 75px;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}

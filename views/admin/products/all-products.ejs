@@ -1,0 +1,224 @@
+<%- include('../../shared/includes/head', { pageTitle: 'All Products' }) %>
+  <link rel="stylesheet" href="/styles/auth.css">
+  <style>
+    /* Admin Products Page Styling */
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .admin-header {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0, 194, 255, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 194, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-header h1 {
+      color: #00bcff;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(0, 188, 255, 0.4);
+    }
+
+    .admin-header p {
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+    }
+
+    .add-product-btn {
+      background: linear-gradient(135deg, rgba(0, 194, 255, 0.2) 0%, rgba(138, 43, 226, 0.2) 100%);
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      border: 1px solid rgba(0, 194, 255, 0.4);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 194, 255, 0.2);
+    }
+
+    .add-product-btn:hover {
+      background: linear-gradient(135deg, rgba(0, 194, 255, 0.3) 0%, rgba(138, 43, 226, 0.3) 100%);
+      border-color: rgba(0, 194, 255, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 6px 20px rgba(0, 194, 255, 0.3),
+        0 0 30px rgba(0, 194, 255, 0.2);
+      color: white;
+    }
+
+    .products-card {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0, 194, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 194, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .products-card h2 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 194, 255, 0.2);
+    }
+
+    .products-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 1rem;
+    }
+
+    .products-table thead th {
+      background: rgba(0, 194, 255, 0.1);
+      color: #00bcff;
+      font-weight: 600;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 2px solid rgba(0, 194, 255, 0.3);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .products-table thead th:first-child {
+      border-top-left-radius: 10px;
+    }
+
+    .products-table thead th:last-child {
+      border-top-right-radius: 10px;
+    }
+
+    .products-table tbody tr {
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .products-table tbody tr:hover {
+      background: rgba(0, 194, 255, 0.08);
+      box-shadow: 0 0 20px rgba(0, 194, 255, 0.15);
+    }
+
+    .products-table tbody td {
+      color: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-edit, .btn-delete {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-edit {
+      background: rgba(0, 194, 255, 0.15);
+      border-color: rgba(0, 194, 255, 0.4);
+      color: #00bcff;
+    }
+
+    .btn-edit:hover {
+      background: rgba(0, 194, 255, 0.25);
+      border-color: rgba(0, 194, 255, 0.6);
+      color: #00e5ff;
+      box-shadow: 0 0 15px rgba(0, 194, 255, 0.3);
+    }
+
+    .btn-delete {
+      background: rgba(255, 59, 48, 0.15);
+      border-color: rgba(255, 59, 48, 0.4);
+      color: #ff6b6b;
+    }
+
+    .btn-delete:hover {
+      background: rgba(255, 59, 48, 0.25);
+      border-color: rgba(255, 59, 48, 0.6);
+      color: #ff8a8a;
+      box-shadow: 0 0 15px rgba(255, 59, 48, 0.3);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: rgba(0, 194, 255, 0.3);
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .admin-container {
+        padding: 1rem;
+      }
+      
+      .products-table {
+        font-size: 0.85rem;
+      }
+      
+      .products-table th,
+      .products-table td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  </style>
+  </head>
+
+  <body class="auth-page">
+    <%- include('../../shared/includes/header') %>
+
+    <main style="padding-top: 120px; min-height: 100vh;">
+      <div class="admin-container">
+        
+        <!-- Header Section -->
+        <div class="admin-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h1><i class="bi bi-shop"></i> Product Administration</h1>
+              <p>Manage your electronics inventory</p>
+            </div>
+            <a href="/admin/products/new" class="add-product-btn">
+              <i class="bi bi-plus-circle"></i> Add Product
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <%- include('../../shared/includes/footer') %>
