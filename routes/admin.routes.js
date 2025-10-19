@@ -11,3 +11,4 @@ router.post('/products', imageUploadMiddleware, adminController.createNewProduct
 
 module.exports = router;
 
+
