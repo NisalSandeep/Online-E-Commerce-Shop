@@ -316,19 +316,33 @@ body.auth-page::after {
     line-height: 1.4;
 }
 
-/* Input Field Styling - White Text */
+/* Input Field Styling - Dark Text on Light Background */
 .custom-input {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1a1f3a !important;
+    -webkit-text-fill-color: #1a1f3a !important;
+    border: 1px solid rgba(0, 194, 255, 0.3) !important;
 }
 
 .custom-input::placeholder {
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(26, 31, 58, 0.5) !important;
 }
 
 .custom-input:focus {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1f3a !important;
+    -webkit-text-fill-color: #1a1f3a !important;
+    border-color: rgba(0, 194, 255, 0.6) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 194, 255, 0.15) !important;
+}
+
+/* Fix autofill background color */
+.custom-input:-webkit-autofill,
+.custom-input:-webkit-autofill:hover,
+.custom-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.9) inset !important;
+    -webkit-text-fill-color: #1a1f3a !important;
+    border: 1px solid rgba(0, 194, 255, 0.3) !important;
 }
 
 /* Responsive adjustments for mobile */
