@@ -1,4 +1,4 @@
-<%- include('../../shared/includes/head', { pageTitle: 'Add New products' }) %>
+<%- include('../../shared/includes/head', { pageTitle: 'Update Product' }) %>
     <link rel="stylesheet" href="/styles/auth.css">
     <style>
         /* New Product Form Styling */
@@ -208,12 +208,11 @@
                     
                     <!-- Form Header -->
                     <div class="form-header">
-                        <h1><i class="bi bi-plus-circle"></i> Add New Product</h1>
+                        <h1><i class="bi bi-plus-circle"></i> Update Product</h1>
                     </div>
 
                     <!-- Product Form -->
-                  <%- include('./includes/product-form', { submitPath: '/admin/products' }) %>
-
+                    <%- include('./includes/product-form', { submitPath: '/admin/products/' + product.id }) %>
 
                 </div>
             </main>
