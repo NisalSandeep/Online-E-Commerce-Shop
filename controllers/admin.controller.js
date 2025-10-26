@@ -1,5 +1,16 @@
-function getProducts(req, res) {
-    res.render('admin/products/all-products');
+const Product = require('../models/product.model');
+
+async function getProducts(req, res, next) {
+
+    try {
+        const products = await Product.findAll();
+        res.render('admin/products/all-products', { products: products });
+    }catch(error){
+        next(error); 
+        return;
+    } 
+   
+   
 }
 function getNewproduct(req, res) {
     res.render('admin/products/new-product');
@@ -7,8 +18,19 @@ function getNewproduct(req, res) {
 
 }
 
-function createNewProduct(req, res){
-    
+async function createNewProduct(req, res, next){
+    const product = new Product({
+        ...req.body,
+        image: req.file.filename
+    });
+
+    try {
+        await product.save();
+
+    }catch(error) {
+        next(error);
+        return;
+    }
     
     res.redirect('/admin/products');
 
