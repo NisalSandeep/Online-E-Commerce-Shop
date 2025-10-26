@@ -1,4 +1,4 @@
-<%- include('../../shared/includes/head', { pageTitle: 'Add New products' }) %>
+<%- include('../../shared/includes/head', { pageTitle: 'Update Product' }) %>
     <link rel="stylesheet" href="/styles/auth.css">
     <style>
         /* New Product Form Styling */
@@ -16,7 +16,7 @@
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow:
+            box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 0 0 20px rgba(0, 194, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -38,7 +38,7 @@
             border: 1px solid rgba(0, 194, 255, 0.2);
             border-radius: 16px;
             padding: 2.5rem;
-            box-shadow:
+            box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 0 0 20px rgba(0, 194, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -84,7 +84,7 @@
             outline: none;
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(0, 194, 255, 0.6);
-            box-shadow:
+            box-shadow: 
                 0 0 20px rgba(0, 194, 255, 0.2),
                 inset 0 0 10px rgba(0, 194, 255, 0.1);
         }
@@ -168,7 +168,7 @@
             background: linear-gradient(135deg, rgba(0, 194, 255, 0.4) 0%, rgba(138, 43, 226, 0.4) 100%);
             border-color: rgba(0, 194, 255, 0.7);
             transform: translateY(-2px);
-            box-shadow:
+            box-shadow: 
                 0 6px 25px rgba(0, 194, 255, 0.4),
                 0 0 30px rgba(0, 194, 255, 0.3);
         }
@@ -205,16 +205,14 @@
 
             <main style="padding-top: 120px; min-height: 100vh;">
                 <div class="form-container">
-
+                    
                     <!-- Form Header -->
                     <div class="form-header">
-                        <h1><i class="bi bi-plus-circle"></i> Add New Product</h1>
+                        <h1><i class="bi bi-plus-circle"></i> Update Product</h1>
                     </div>
 
                     <!-- Product Form -->
-                    <%- include('./includes/product-form', { submitPath: '/admin/products' }, { product: { title: '' ,
-                        summary: '' , price: '' , description: '' } }) %>
-
+                    <%- include('./includes/product-form', { submitPath: '/admin/products/' + product.id }, { product: product }) %>
 
                 </div>
             </main>
