@@ -213,8 +213,7 @@
 
                     <!-- Product Form -->
                     <%- include('./includes/product-form', { submitPath: '/admin/products' }, { product: { title: '' ,
-                        summary: '' , price: '' , description: '' } }) %>
-
+                        summary: '' , price: '' , description: '' } }, { imageRequired: true }) %>
 
                 </div>
             </main>
