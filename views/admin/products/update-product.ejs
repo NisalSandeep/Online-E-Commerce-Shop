@@ -1,5 +1,6 @@
 <%- include('../../shared/includes/head', { pageTitle: 'Update Product' }) %>
     <link rel="stylesheet" href="/styles/auth.css">
+    <script src="/scripts/image-preview.js" defer></script>
     <style>
         /* New Product Form Styling */
         .form-container {
@@ -118,6 +119,31 @@
         input[type="file"].form-control::file-selector-button:hover {
             background: rgba(0, 194, 255, 0.3);
             border-color: rgba(0, 194, 255, 0.6);
+        }
+
+        /* Image Preview Styling */
+        .image-preview {
+            margin-top: 1rem;
+            max-width: 200px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 194, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .image-preview[src]:not([src=""]) {
+            display: block;
+        }
+
+        .image-preview:hover {
+            border-color: rgba(0, 194, 255, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 194, 255, 0.3);
+            transform: scale(1.02);
         }
 
         .form-actions {
