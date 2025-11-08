@@ -47,5 +47,5 @@ This project provides a seamless shopping experience for users and a robust mana
 2. git clone https://github.com/NisalSandeep/Online-E-Commerce-Shop.git
 3. cd Online-E-Commerce-Shop
 4. npm install
-
+5. npm start
 
