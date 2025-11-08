@@ -1,0 +1,460 @@
+<%- include('../../shared/includes/head', { pageTitle: product.title }) %>
+  <link rel="stylesheet" href="/styles/auth.css">
+  <style>
+    /* Product Details Page Styling */
+    .product-details-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 194, 255, 0.2);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: #00bcff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: #00e5ff;
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .breadcrumb .current {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Product Details Card */
+    .product-details-card {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0, 194, 255, 0.3);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 194, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .product-details-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 3rem;
+      border-bottom: 1px solid rgba(0, 194, 255, 0.2);
+    }
+
+    /* Product Image Section */
+    .product-image-section {
+      position: relative;
+    }
+
+    .product-main-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 2px solid rgba(0, 194, 255, 0.3);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(0, 194, 255, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .product-main-image:hover {
+      transform: scale(1.02);
+      border-color: rgba(0, 194, 255, 0.6);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(0, 194, 255, 0.4);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: linear-gradient(135deg, rgba(0, 194, 255, 0.9) 0%, rgba(138, 43, 226, 0.9) 100%);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 194, 255, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0, 194, 255, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 194, 255, 0.6);
+      }
+    }
+
+    /* Product Info Section */
+    .product-info-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .product-title {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .product-summary {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .product-price-section {
+      background: rgba(0, 194, 255, 0.1);
+      border: 1px solid rgba(0, 194, 255, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .price-label {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .price-amount {
+      color: #00bcff;
+      font-size: 3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-shadow: 
+        0 0 25px rgba(0, 188, 255, 0.6),
+        0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .price-amount i {
+      font-size: 2.5rem;
+    }
+
+    /* Add to Cart Button */
+    .add-to-cart-btn {
+      background: linear-gradient(135deg, rgba(0, 194, 255, 0.3) 0%, rgba(138, 43, 226, 0.3) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 194, 255, 0.5);
+      color: white;
+      padding: 1.25rem 2.5rem;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 194, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .add-to-cart-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .add-to-cart-btn:hover::before {
+      left: 100%;
+    }
+
+    .add-to-cart-btn:hover {
+      background: linear-gradient(135deg, rgba(0, 194, 255, 0.45) 0%, rgba(138, 43, 226, 0.45) 100%);
+      border-color: rgba(0, 194, 255, 0.8);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 30px rgba(0, 194, 255, 0.5),
+        0 0 40px rgba(0, 194, 255, 0.4);
+    }
+
+    .add-to-cart-btn i {
+      font-size: 1.5rem;
+    }
+
+    .back-to-products-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 0.9rem 1.8rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .back-to-products-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: white;
+      transform: translateX(-5px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Product Description Section */
+    .product-description-section {
+      padding: 3rem;
+    }
+
+    .description-title {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .description-title i {
+      color: #00bcff;
+      font-size: 1.6rem;
+    }
+
+    .description-content {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 968px) {
+      .product-details-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .product-main-image {
+        height: 400px;
+      }
+
+      .product-title {
+        font-size: 2rem;
+      }
+
+      .price-amount {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .product-details-container {
+        padding: 1rem;
+      }
+
+      .breadcrumb {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .product-details-header,
+      .product-description-section {
+        padding: 1.5rem;
+      }
+
+      .product-main-image {
+        height: 350px;
+      }
+
+      .product-title {
+        font-size: 1.75rem;
+      }
+
+      .product-summary {
+        font-size: 1rem;
+      }
+
+      .price-amount {
+        font-size: 2rem;
+      }
+
+      .add-to-cart-btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+
+      .description-title {
+        font-size: 1.5rem;
+      }
+
+      .description-content {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .product-main-image {
+        height: 300px;
+      }
+
+      .product-title {
+        font-size: 1.5rem;
+      }
+
+      .product-info-section {
+        gap: 1.5rem;
+      }
+
+      .price-amount {
+        font-size: 1.75rem;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .back-to-products-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+  </head>
+
+  <body class="auth-page">
+    <%- include('../../shared/includes/header') %>
+    
+
+  <body class="auth-page">
+    <%- include('../../shared/includes/header') %>
+
+    <main style="padding-top: 120px; min-height: 100vh; padding-bottom: 3rem;">
+      <div class="product-details-container">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+          <a href="/"><i class="bi bi-house-door"></i> Home</a>
+          <span>/</span>
+          <a href="/products">Products</a>
+          <span>/</span>
+          <span class="current"><%= product.title %></span>
+        </nav>
+
+        <!-- Product Details Card -->
+        <div class="product-details-card">
+          
+          <!-- Product Header: Image and Info -->
+          <div class="product-details-header">
+            
+            <!-- Product Image Section -->
+            <div class="product-image-section">
+              <div class="product-badge">
+                <i class="bi bi-lightning-charge-fill"></i> Featured
+              </div>
+              <img 
+                src="<%= product.imageUrl %>" 
+                alt="<%= product.title %>" 
+                class="product-main-image"
+                loading="lazy">
+            </div>
+
+            <!-- Product Info Section -->
+            <div class="product-info-section">
+              <h1 class="product-title"><%= product.title %></h1>
+              
+              <% if (product.summary) { %>
+                <p class="product-summary"><%= product.summary %></p>
+              <% } %>
+
+              <!-- Price Section -->
+              <div class="product-price-section">
+                <span class="price-label">Price</span>
+                <div class="price-amount">
+                  <i class="bi bi-currency-dollar"></i><%= product.price.toFixed(2) %>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <button class="add-to-cart-btn">
+                <i class="bi bi-cart-plus-fill"></i>
+                <span>Add to Cart</span>
+              </button>
+
+              <a href="/products" class="back-to-products-btn">
+                <i class="bi bi-arrow-left"></i>
+                <span>Back to Products</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Product Description Section -->
+          <div class="product-description-section">
+            <h2 class="description-title">
+              <i class="bi bi-file-text"></i>
+              Product Description
+            </h2>
+            <p class="description-content"><%= product.description %></p>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <%- include('../../shared/includes/footer') %>
