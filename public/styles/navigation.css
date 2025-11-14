@@ -515,6 +515,81 @@ body {
     }
 }
 
+/* Cart Badge Styling */
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0a0e27;
+    background: linear-gradient(135deg, #00bcff 0%, #00d4ff 100%);
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 188, 255, 0.6),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: badge-pulse 2s ease-in-out infinite;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+/* Badge pulse animation */
+@keyframes badge-pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 188, 255, 0.6),
+                    0 4px 8px rgba(0, 0, 0, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 188, 255, 0.9),
+                    0 4px 12px rgba(0, 0, 0, 0.4);
+        transform: scale(1.05);
+    }
+}
+
+/* Badge hover effect */
+#main-header nav a:hover .badge {
+    background: linear-gradient(135deg, #00d4ff 0%, #00e8ff 100%);
+    box-shadow: 0 0 30px rgba(0, 188, 255, 0.9),
+                0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+/* Ensure parent anchor has relative positioning */
+#main-header nav a {
+    position: relative;
+}
+
+/* Responsive badge adjustments */
+@media (max-width: 768px) {
+    aside .badge {
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+    }
+    
+    aside nav a:hover .badge {
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+@media (max-width: 576px) {
+    .badge {
+        min-width: 18px;
+        height: 18px;
+        font-size: 0.65rem;
+        padding: 0 5px;
+        top: -6px;
+        right: -8px;
+    }
+}
+
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
